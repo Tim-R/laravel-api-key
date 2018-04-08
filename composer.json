@@ -23,9 +23,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-                "ejarnutowski/laravel-api-key"
+            "providers": [
+                "Ejarnutowski\\LaravelApiKey\\Providers\\ApiKeyServiceProvider"
             ]
         }
-    }
+    },
 }
