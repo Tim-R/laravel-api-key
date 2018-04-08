@@ -21,10 +21,6 @@ class ApiKeyServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        $this->publishes([
-            __DIR__.'/../../config/apikeys.php' => config_path('apikeys.php'),
-        ]);
-
         $this->registerMiddleware($router);
         $this->registerMigrations(__DIR__ . '/../../database/migrations');
     }

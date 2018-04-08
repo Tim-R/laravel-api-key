@@ -17,7 +17,7 @@ class AuthorizeApiKey
      */
     public function handle(Request $request, Closure $next)
     {
-        $header = $request->header(config('auth_header'));
+        $header = $request->header('X-Authorization');
         $apiKey = ApiKey::getByKey($header);
 
         if ($apiKey instanceof ApiKey) {
