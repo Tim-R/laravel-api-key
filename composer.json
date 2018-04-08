@@ -27,5 +27,5 @@
                 "Ejarnutowski\\LaravelApiKey\\Providers\\ApiKeyServiceProvider"
             ]
         }
-    },
+    }
 }
