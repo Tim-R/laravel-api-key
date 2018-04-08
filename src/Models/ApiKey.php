@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
-class ApiKey extends BaseModel
+class ApiKey extends Model
 {
     use SoftDeletes;
 
@@ -18,6 +18,7 @@ class ApiKey extends BaseModel
     protected static $nameRegex = '/^[a-z-]{1,255}$/';
 
     protected $table = 'api_keys';
+    protected $connection = 'mysql_api';
 
     /**
      * Get the related ApiKeyAccessEvents records

@@ -4,9 +4,10 @@ namespace Ejarnutowski\LaravelApiKey\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ApiKeyAdminEvent extends BaseModel
+class ApiKeyAdminEvent extends Model
 {
     protected $table = 'api_key_admin_events';
+    protected $connection = 'mysql_api';
 
     /**
      * Get the related ApiKey record
