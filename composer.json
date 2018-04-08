@@ -7,6 +7,10 @@
         {
             "name": "Elliott Jarnutowski",
             "email": "e@jarno.co"
+        },
+        {
+            "name": "Tim Roden",
+            "email": "tim@timroden.ca"
         }
     ],
     "minimum-stability": "stable",

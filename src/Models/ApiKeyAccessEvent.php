@@ -4,7 +4,7 @@ namespace Ejarnutowski\LaravelApiKey\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ApiKeyAccessEvent extends Model
+class ApiKeyAccessEvent extends BaseModel
 {
     protected $table = 'api_key_access_events';
 

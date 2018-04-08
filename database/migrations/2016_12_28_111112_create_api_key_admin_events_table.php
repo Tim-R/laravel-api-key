@@ -13,7 +13,7 @@ class CreateApiKeyAdminEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create('api_key_admin_events', function (Blueprint $table) {
+        Schema::connection(config('connection'))->create('api_key_admin_events', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('api_key_id');
             $table->ipAddress('ip_address');
@@ -33,6 +33,6 @@ class CreateApiKeyAdminEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('api_key_admin_events');
+        Schema::connection(config('connection'))->dropIfExists('api_key_admin_events');
     }
 }

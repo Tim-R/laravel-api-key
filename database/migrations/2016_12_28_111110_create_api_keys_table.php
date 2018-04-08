@@ -13,7 +13,7 @@ class CreateApiKeysTable extends Migration
      */
     public function up()
     {
-        Schema::create('api_keys', function (Blueprint $table) {
+        Schema::connection(config('connection'))->create('api_keys', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('key', 64);
@@ -33,6 +33,6 @@ class CreateApiKeysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('api_keys');
+        Schema::connection(config('connection'))->dropIfExists('api_keys');
     }
 }

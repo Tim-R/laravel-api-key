@@ -12,13 +12,14 @@ class GenerateApiKey extends Command
      */
     const MESSAGE_ERROR_INVALID_NAME_FORMAT = 'Invalid name.  Must be a lowercase alphabetic characters and hyphens less than 255 characters long.';
     const MESSAGE_ERROR_NAME_ALREADY_USED   = 'Name is unavailable.';
+    const MESSAGE_KEY_LENGTH_TOO_SHORT      = 'Speicified length is too short.';
 
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'apikey:generate {name}';
+    protected $signature = 'apikey:generate {name} {length=32}';
 
     /**
      * The console command description.
@@ -33,8 +34,9 @@ class GenerateApiKey extends Command
     public function handle()
     {
         $name = $this->argument('name');
+        $length = $this->argument('length');
 
-        $error = $this->validateName($name);
+        $error = $this->validate($name, $length);
 
         if ($error) {
             $this->error($error);
@@ -43,7 +45,7 @@ class GenerateApiKey extends Command
 
         $apiKey       = new ApiKey;
         $apiKey->name = $name;
-        $apiKey->key  = ApiKey::generate();
+        $apiKey->key  = ApiKey::generate($length);
         $apiKey->save();
 
         $this->info('API key created');
@@ -52,19 +54,26 @@ class GenerateApiKey extends Command
     }
 
     /**
-     * Validate name
+     * Validate arguments
      *
      * @param string $name
+     * @param int $length
      * @return string
      */
-    protected function validateName($name)
+    protected function validate($name, $length)
     {
         if (!ApiKey::isValidName($name)) {
             return self::MESSAGE_ERROR_INVALID_NAME_FORMAT;
         }
+
         if (ApiKey::nameExists($name)) {
             return self::MESSAGE_ERROR_NAME_ALREADY_USED;
         }
+
+        if ($length < 10) {
+            return self::MESSAGE_KEY_LENGTH_TOO_SHORT;
+        }
+
         return null;
     }
 }

@@ -4,8 +4,9 @@ namespace Ejarnutowski\LaravelApiKey\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 
-class ApiKey extends Model
+class ApiKey extends BaseModel
 {
     use SoftDeletes;
 
@@ -73,10 +74,10 @@ class ApiKey extends Model
      *
      * @return string
      */
-    public static function generate()
+    public static function generate($length)
     {
         do {
-            $key = str_random(64);
+            $key = str_random($length);
         } while (self::keyExists($key));
 
         return $key;
@@ -156,6 +157,21 @@ class ApiKey extends Model
         $event->api_key_id = $apiKey->id;
         $event->ip_address = request()->ip();
         $event->event      = $eventName;
+        $event->save();
+    }
+
+    /**
+     * Log an API key access event
+     *
+     * @param Request $request
+     * @param ApiKey  $apiKey
+     */
+    public function logAccessEvent(Request $request)
+    {
+        $event = new ApiKeyAccessEvent;
+        $event->api_key_id = $this->id;
+        $event->ip_address = $request->ip();
+        $event->url        = $request->fullUrl();
         $event->save();
     }
 }
