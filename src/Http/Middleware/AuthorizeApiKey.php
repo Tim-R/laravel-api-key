@@ -26,7 +26,8 @@ class AuthorizeApiKey
             return $next($request);
         }
 
-        return response([
+        return response()->json([
+            'success' => false,
             'errors' => [[
                 'message' => 'Unauthorized'
             ]]
